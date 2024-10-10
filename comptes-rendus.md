@@ -122,7 +122,6 @@ AUTRE METHODE :
 In [5]: from datetime import datetime
     ...: from polls.models import Question
     ...:
-    ...:
     ...: date_specifique = datetime(2024, 10, 9)
     ...:
     ...: questions_filtrees = Question.objects.filter(pub_date__year=date_specifique.year,
@@ -138,16 +137,110 @@ ID: 2, Texte: Météo ?, Date de publication: 2024-10-09 08:19:49+00:00
 
 #### 3. Trouvez la deuxième question
 ```python
-
+In [6]: Question.objects.filter(id=2)
+Out[6]: <QuerySet [<Question: Météo ?>]>
 ```
+ou
+```python
+In [5]: Question.objects.get(id=2)
+Out[5]: <Question: Météo ?>
+```
+Afficher les choix 
+```python
+In [6]:  Question.objects.filter(id=2)
+    ...:
+    ...: print(f"Question: {question.question_text}")
+    ...: choices = question.choice_set.all()
+    ...:
+    ...: for choice in choices:
+    ...:     print(f"Choix: {choice.choice_text}")
+    ...:
+Question: Météo ?
+Choix: il fait beau
+Choix: c'est nuageux
+Choix: il pleut
+```
+
 #### 4. Faites une boucle pour afficher les attributs de chaque question et leurs choix associés.
 ```python
-
+In [7]: questions = Question.objects.all()
+    ...:
+    ...: for question in questions :
+    ...:     print(f"Question : {question.question_text} (ID : {question.id}, Publié le : {question.pub_date})")
+    ...:     
+    ...:     choices = question.choice_set.all()
+    ...:     if choices.exists():
+    ...:         for choice in choices:
+    ...:             print(f"- Choix : {choice.choice_text}")
+    ...:     else :
+    ...:         print(" Aucun choix disponible")
+    ...:
+```
+Résultat : 
+```python
+Question : What's up? (ID : 1, Publié le : 2024-10-09 08:19:04+00:00)
+- Choix : Not much
+- Choix : The sky
+- Choix : rien
+- Choix : une bonne nouvelle
+Question : Météo ? (ID : 2, Publié le : 2024-10-09 08:19:49+00:00)
+- Choix : il fait beau
+- Choix : c'est nuageux
+- Choix : il pleut
+Question : aimes tu lire ? (ID : 3, Publié le : 2024-10-07 10:00:00+00:00)
+- Choix : oui
+- Choix : non
+- Choix : Parfois
+Question : La destination de tes prochaine vacances ? (ID : 4, Publié le : 2024-10-08 08:53:32+00:00)
+- Choix : Islande
+- Choix : USA
+- Choix : Japon
+Question : Un apéro ? (ID : 6, Publié le : 2024-10-08 10:00:00+00:00)
+- Choix : Toujours partant
+- Choix : Cela ne se refuse pas
+- Choix : Non, je bois de l'eau
+Question : Python ou Java ? (ID : 7, Publié le : 2024-10-03 22:00:00+00:00)
+- Choix : Aucun des deux
+- Choix : Python
+- Choix : Java mais python c'est mieux
+Question : Ta couleur préféré ? (ID : 8, Publié le : 2024-09-30 22:00:00+00:00)
+- Choix : vert
+- Choix : rose
+- Choix : bleouge
 ```
 #### 5. Affichez le nombre de choix enregistrés pour chaque question
 ```python
-
+questions = Question.objects.all()
+    ...: for question in questions:
+    ...:     print(f"ID : {question.id} - Question : {question.question_text} ")
+    ...:
+    ...:     choices = question.choice_set.all()
+    ...:     count_choices = choices.count()
+    ...:
+    ...:     if count_choices > 0:
+    ...:         print(f"Nombre de choix : {count_choices}")
+    ...:
+    ...:     else:
+    ...:         print("Aucun choix disponible")
 ```
+Résultat : 
+```python
+ID : 1 - Question : What's up?
+Nombre de choix : 4
+ID : 2 - Question : Météo ?
+Nombre de choix : 3
+ID : 3 - Question : aimes tu lire ?
+Nombre de choix : 3
+ID : 4 - Question : La destination de tes prochaine vacances ?
+Nombre de choix : 3
+ID : 6 - Question : Un apéro ?
+Nombre de choix : 3
+ID : 7 - Question : Python ou Java ?
+Nombre de choix : 3
+ID : 8 - Question : Ta couleur préféré ?
+Nombre de choix : 3
+```
+
 
 
 
