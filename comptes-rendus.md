@@ -287,12 +287,21 @@ In [15]: for choice in question.choice_set.all():
 
 ### 11.Listez les questions publiées récemment.
 ```python
-
+In [16]: recent_questions = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    ...: for question in recent_questions:
+    ...:     pub_date_formatted = question.pub_date.date()
+    ...:     print(f"Publié le : {pub_date_formatted} // ID : {question.id} --> Question : {question.question_text}")
+    ...:
+Publié le : 2024-10-10 // ID : 9 --> Question : Quel est votre film favori ?
+Publié le : 2024-10-09 // ID : 2 --> Question : Météo ?
+Publié le : 2024-10-09 // ID : 1 --> Question : What's up?
+Publié le : 2024-10-08 // ID : 6 --> Question : Un apéro ?
+Publié le : 2024-10-08 // ID : 4 --> Question : La destination de tes prochaine vacances ?
+Publié le : 2024-10-07 // ID : 3 --> Question : aimes tu lire ?
+Publié le : 2024-10-03 // ID : 7 --> Question : Python ou Java ?
+Publié le : 2024-09-30 // ID : 8 --> Question : Ta couleur préféré ?
 ```
-Résultat :
-```python
 
-```
 
 
 
