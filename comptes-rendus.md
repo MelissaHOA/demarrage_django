@@ -178,7 +178,7 @@ In [7]: questions = Question.objects.all()
 ```
 Résultat : 
 ```python
-Question : What's up? (ID : 1, Publié le : 2024-10-09 08:19:04+00:00)
+...: Question : What's up? (ID : 1, Publié le : 2024-10-09 08:19:04+00:00)
 - Choix : Not much
 - Choix : The sky
 - Choix : rien
@@ -210,7 +210,7 @@ Question : Ta couleur préféré ? (ID : 8, Publié le : 2024-09-30 22:00:00+00:
 ```
 #### 5. Affichez le nombre de choix enregistrés pour chaque question
 ```python
-questions = Question.objects.all()
+In [8]: questions = Question.objects.all()
     ...: for question in questions:
     ...:     print(f"ID : {question.id} - Question : {question.question_text} ")
     ...:
@@ -241,9 +241,63 @@ ID : 8 - Question : Ta couleur préféré ?
 Nombre de choix : 3
 ```
 
+### 7.Triez les questions par ordre antéchronologique.
+```python
+In [9]: questions = Question.objects.all().order_by('-pub_date')
+    ...: for question in questions:
+    ...:     pub_date_formatted = question.pub_date.date()
+    ...:     print(f"Publié le : {pub_date_formatted} -- ID = {question.id} ---> Question : {question.question_text}")
+```
+Résultat :
+```python
+...:
+Publié le : 2024-10-09 -- ID = 2 ---> Question : Météo ?
+Publié le : 2024-10-09 -- ID = 1 ---> Question : What's up?
+Publié le : 2024-10-08 -- ID = 6 ---> Question : Un apéro ?
+Publié le : 2024-10-08 -- ID = 4 ---> Question : La destination de tes prochaine vacances ?
+Publié le : 2024-10-07 -- ID = 3 ---> Question : aimes tu lire ?
+Publié le : 2024-10-03 -- ID = 7 ---> Question : Python ou Java ?
+Publié le : 2024-09-30 -- ID = 8 ---> Question : Ta couleur préféré ?
+```
+### 9.Créez une question en utilisant le shell.
+```python
+In [10]: from polls.models import Question
+In [11]:from django.utils import timezone
+
+In [12]: new_question = Question(question_text="Quel est votre film favori ?", pub_date=timezone.now())
+    ...: new_question.save()
+    ...: print(f"Question créée : {new_question.question_text} (ID : {new_question.id}, Publié le : {new_question.pub_date})")
+Question créée : Quel est votre film favori ? (ID : 9, Publié le : 2024-10-10 13:22:41.726850+00:00)
+```
+### 10.Ajoutez 3 choix à cette question en utilisant le shell.
+```python
+In [13]: question = Question.objects.get(id=9)
+    ...:
+In [14]: Choice.objects.create(question=question, choice_text="Titanic")
+    ...: Choice.objects.create(question=question, choice_text="Harry Potter")
+    ...: Choice.objects.create(question=question, choice_text="Saw")
+    ...:
+In [15]: for choice in question.choice_set.all():
+    ...:     print(f"- {choice.choice_text}")
+    ...:
+- Titanic
+- Harry Potter
+- Saw
+```
+
+### 11.Listez les questions publiées récemment.
+```python
+
+```
+Résultat :
+```python
+
+```
 
 
 
+
+_________________________________________________________
 ```python
 
 ```
