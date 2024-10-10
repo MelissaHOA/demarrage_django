@@ -37,4 +37,18 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice, ChoiceAdmin)
 ```
 
+### 5. Ajoutez un nouvel utilisateur via l'interface d'admin.
+Déconnectez-vous et essayer de vous reconnecter avec ce nouveau compte.
+<br> Y parvenez-vous ?
+* Non
+
+### 6.faites en sorte que l'utilisateur puisse se connecter à l'interface d'admin. Profitez-en pour changer son mot de passe.
+* Dans la fiche utilisateur cocher Actif et statut d'équipe
+* Pour changer le mot de passe l'utilisateur doit se connecter et aller sur son compte pour changer le mdp
+
+### 7. L'utilisateur ayant quitté l'organisation, cherchez maintenant à désactiver son compte plutôt que de le supprimez. Vérifiez qu'il ne peut plus se connecter.
+* En tant que super utilisateur sur la fiche utilisateur décocher toutes les permissions. l'utilisateur ne peux plus se connecter
+
+
+## ---- Exercice shell ----
 
